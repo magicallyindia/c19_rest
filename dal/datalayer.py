@@ -1,5 +1,4 @@
 import json
-import MySQLdb
 import pandas as pd
 from flask import request
 
@@ -7,7 +6,6 @@ from utils import df_to_geojson
 import sqlite3
 
 dbpath = 'data.sqlite'
-db = MySQLdb
 
 def get_connection():
     connection = sqlite3.connect(dbpath)
