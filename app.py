@@ -9,7 +9,6 @@ from india_bot import getcurrdata
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route('/')
 def hello_world():
     return render_template("login.html")
