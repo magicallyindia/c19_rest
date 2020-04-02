@@ -3,8 +3,7 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 
 from dal.datalayer import getgovcenters, getpricenters, addgovcenters, addpricenters
-from global_bot import getglobdata
-from india_bot import getcurrdata
+
 
 app = Flask(__name__)
 CORS(app)
