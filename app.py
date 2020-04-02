@@ -1,32 +1,21 @@
-import json
 import flask
-import pandas as pd
-import pymysql
 from flask import Flask, render_template, request
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from global_bot import getglobdata
-from india_bot import getcurrdata
-from utils import df_to_geojson
-import MySQLdb
-
 
 from dal.datalayer import getgovcenters, getpricenters, addgovcenters, addpricenters
+from global_bot import getglobdata
+from india_bot import getcurrdata
 
-db = MySQLdb
 app = Flask(__name__)
 CORS(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:welcome2020@localhost:3306/c19_rest"
-
-db = SQLAlchemy(app)
 
 
 @app.route('/')
 def hello_world():
     return render_template("login.html")
 
-@app.route('/login',methods=['GET','POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if flask.request.method == 'POST':
         result = flask.request.form
@@ -54,7 +43,6 @@ def government():
         return 'Error in API'
 
 
-
 @app.route('/privatetestCenters', methods=['GET'])
 def private():
     args = request.args
@@ -64,8 +52,6 @@ def private():
     except NameError:
         print(NameError)
         return 'Error in API'
-
-
 
 
 @app.route('/quarantine', methods=['GET'])
@@ -83,7 +69,8 @@ def helpline():
 def redzone():
     return render_template('red_zone.html')
 
-@app.route('/addgovernment', methods=['GET','POST'])
+
+@app.route('/addgovernment', methods=['GET', 'POST'])
 def insertgovuser():
     return render_template('newgovernmentcenter.html')
 
@@ -98,8 +85,7 @@ def addgovtestcenters():
         return render_template('govlist.html')
 
 
-
-@app.route('/addprivate', methods=['GET','POST'])
+@app.route('/addprivate', methods=['GET', 'POST'])
 def insertpriuser():
     return render_template('newprivatecenter.html')
 

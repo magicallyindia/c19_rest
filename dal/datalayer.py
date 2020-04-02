@@ -4,15 +4,18 @@ import pandas as pd
 from flask import request
 
 from utils import df_to_geojson
+import sqlite3
 
+dbpath = 'data.sqlite'
 db = MySQLdb
 
-
 def get_connection():
-    connection = db.connect(host='localhost',
-                            user='root',
-                            password='welcome2020',
-                            db='c19_rest')
+    connection = sqlite3.connect(dbpath)
+    connection.text_factory = lambda b: b.decode(errors = 'ignore')
+    # connection = db.connect(host='localhost',
+    #                         user='root',
+    #                         password='welcome2020',
+    #                         db='c19_rest')
     return connection
 
 
@@ -21,7 +24,7 @@ def getgovcenters(options):
         connection = get_connection()
 
         df = pd.read_sql(
-            "SELECT hospital,address,contact_person,email,phone,state,latitude,longitude FROM c19_rest.gov_test_centers",
+            "SELECT hospital,address,contact_person,email,phone,state,latitude,longitude FROM gov_test_centers",
             connection)
 
         cols = ['hospital', 'address', 'contact_person', 'email', 'phone', 'state']
@@ -34,7 +37,7 @@ def getgovcenters(options):
         connection = get_connection()
 
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM c19_rest.gov_test_centers;")
+        cursor.execute("SELECT * FROM gov_test_centers;")
         rows = cursor.fetchall()
         j = json.dumps(rows)
 
@@ -46,7 +49,7 @@ def getpricenters(options):
     if ('geo' in options):
         connection = get_connection()
 
-        df = pd.read_sql("SELECT hospital,address,phone,state,latitude,longitude FROM c19_rest.private_test_centers",
+        df = pd.read_sql("SELECT hospital,address,phone,state,latitude,longitude FROM private_test_centers",
                          connection)
 
         cols = ['hospital', 'address', 'phone', 'state']
@@ -58,7 +61,7 @@ def getpricenters(options):
         connection = get_connection()
         cursor = connection.cursor()
 
-        cursor.execute("SELECT * FROM c19_rest.private_test_centers;")
+        cursor.execute("SELECT * FROM private_test_centers;")
 
         rows = cursor.fetchall()
 
