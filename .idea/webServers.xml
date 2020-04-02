@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c925a733-95ad-4bb3-9197-fb2b1df74d8b" name="c19_rest" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="$USER_HOME$/c19rest_dist" accessType="MOUNT" />
+      </webServer>
+    </option>
+    <groups>
+      <group>
+        <name>myserver</name>
+      </group>
+    </groups>
+  </component>
+</project>
